@@ -1,6 +1,15 @@
+from config import settings
+from modules.v1.menu.commands import menu_commands
+
+
 class StartCommands:
     def __init__(self):
         pass
+
+    async def handle_messages(self, bot, message):
+        result = await start_commands.get_description()
+        menu = await menu_commands.get_default_menu()
+        await bot.send_message(message.chat.id, result, reply_markup=menu, parse_mode=settings.parse_mode)
 
     async def get_description(self):
         description = (

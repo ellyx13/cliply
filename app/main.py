@@ -13,6 +13,7 @@ logger.add(settings.log_path, colorize=False, format="<green>{time:YYYY-MM-DD HH
 
 
 async def main():
+    logger.info("Removing webhook")
     await bot.remove_webhook()
     logger.info("Starting bot")
     await bot.polling()
