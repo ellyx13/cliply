@@ -1,6 +1,12 @@
 pyTelegramBotAPI==4.25.0
+pydantic==2.8.2
 pydantic-settings==2.7.0
 loguru==0.7.3
 aiohttp==3.11.11
 google-generativeai==0.8.3
 beautifulsoup4==4.12.3
+validators==0.34.0
+
+# Database
+motor==3.6.0
+typing-inspect==0.9.0
