@@ -1,11 +1,10 @@
 import re
 
 from loguru import logger
+from modules.v1.articles.object import Articles
+from modules.v1.articles.services import article_services
 from modules.v1.crawler.services import crawler_services
 from partners.v1.gemini.services import gemini_services
-
-from .object import Articles
-from .services import summary_services
 
 
 class SummaryCommands:
@@ -32,7 +31,7 @@ class SummaryCommands:
         if link is None:
             return None
         logger.info(f"Extracted content in link: {link}")
-        summary = await summary_services.get_by_url(link)
+        summary = await article_services.get_by_url(link)
         if summary:
             await self.send_summary(bot, message, article=summary)
             return None
@@ -41,7 +40,7 @@ class SummaryCommands:
         logger.info(f"Summarizing {title} ...")
         summary = await gemini_services.chat(content)
         article = Articles.from_summary(summary=summary, content=content, url=link)
-        await summary_services.create(article)
+        await article_services.create(article)
         await self.send_summary(bot, message, article=article)
 
 

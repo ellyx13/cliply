@@ -6,7 +6,7 @@ from .model import Articles as ArticlesModel
 from .object import Articles
 
 
-class SummaryServices(BaseServices):
+class ArticleServices(BaseServices):
     def __init__(self, service_name, crud=None):
         super().__init__(service_name, crud)
 
@@ -23,5 +23,5 @@ class SummaryServices(BaseServices):
         return None
 
 
-summary_crud = BaseCRUD(database_engine=app_engine, collection="articles")
-summary_services = SummaryServices(service_name="summary", crud=summary_crud)
+article_crud = BaseCRUD(database_engine=app_engine, collection="articles")
+article_services = ArticleServices(service_name="articles", crud=article_crud)

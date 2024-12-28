@@ -7,7 +7,7 @@ bot = AsyncTeleBot(settings.telegram_bot_token)
 
 
 async def check_authorization(message, ignore_send_message=False):
-    if message.from_user.username not in settings.telegram_allow_username:
+    if message.from_user.username != settings.telegram_admin_username:
         if ignore_send_message:
             return False
         unauthorized_message = "You are not authorized to use this bot."
