@@ -25,10 +25,10 @@ async def send_welcome(message):
 @bot.message_handler(func=lambda message: True)  # Xử lý mọi tin nhắn gửi đến bot
 async def handle_messages(message):
     if await check_authorization(message, ignore_send_message=True):
-        await summary_commands.handle_messages(bot, message)
+        await summary_commands.handle_messages(message)
 
 
 @bot.message_handler(commands=["summary"])  # Xử lý mọi tin nhắn gửi đến bot
 async def summary(message):
     if await check_authorization(message):
-        await summary_commands.handle_messages(bot, message)
+        await summary_commands.handle_messages(message)
