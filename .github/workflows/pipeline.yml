@@ -56,5 +56,5 @@ jobs:
             export CLIPLY_IMAGE_REGISTRY="${{ secrets.IMAGE_REGISTRY }}"
             docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_TOKEN }}"
             docker compose -f docker-compose-prod.yml down
-            docker compose -f docker-compose-prod.yml pull
+            docker compose -f docker-compose-prod.yml pull bot
             docker compose -f docker-compose-prod.yml up -d
