@@ -25,7 +25,8 @@ class SummaryCommands:
         logger.info(f"Summarizing {title} ...")
         summary = await gemini_services.chat(content)
         article = Articles.from_summary(summary=summary, content=content, url=link)
-        return await article_services.create(article)
+        await article_services.create(article)
+        return article
 
     async def handle_messages(self, message):
         link = self.extract_link(message.text)
