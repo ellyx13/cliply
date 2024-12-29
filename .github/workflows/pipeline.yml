@@ -5,24 +5,24 @@ on:
     branches: ["feature/cicd"]
 
 jobs:
-  # build:
-    # runs-on: ubuntu-latest
-    # steps:
-    #   - name: Checkout
-    #     uses: "actions/checkout@v4"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: "actions/checkout@v4"
 
-    #   - name: Login Docker
-    #     run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_TOKEN }}"
+      - name: Login Docker
+        run: docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_TOKEN }}"
 
-    #   - name: Build Docker image
-    #     run: docker build -t ${{ secrets.IMAGE_REGISTRY }}:${{ vars.IMAGE_NAME }} -f ./app/Dockerfile ./app
+      - name: Build Docker image
+        run: docker build -t ${{ secrets.IMAGE_REGISTRY }}:${{ vars.IMAGE_NAME }} -f ./app/Dockerfile ./app
 
-    #   - name: Push to Registry
-    #     run: docker push ${{ secrets.IMAGE_REGISTRY }}:${{ vars.IMAGE_NAME }}
+      - name: Push to Registry
+        run: docker push ${{ secrets.IMAGE_REGISTRY }}:${{ vars.IMAGE_NAME }}
 
   deploy:
     runs-on: ubuntu-latest
-    # needs: build
+    needs: build
     steps:
       - name: Checkout
         uses: "actions/checkout@v4"
@@ -55,4 +55,6 @@ jobs:
             export CLIPLY_IMAGE_NAME="${{ vars.IMAGE_NAME }}"
             export CLIPLY_IMAGE_REGISTRY="${{ secrets.IMAGE_REGISTRY }}"
             docker login -u "${{ secrets.DOCKER_USERNAME }}" -p "${{ secrets.DOCKER_TOKEN }}"
+            docker compose -f docker-compose-prod.yml down
+            docker compose -f docker-compose-prod.yml pull
             docker compose -f docker-compose-prod.yml up -d
