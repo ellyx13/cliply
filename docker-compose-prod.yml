@@ -1,6 +1,6 @@
 services:
   bot:
-    image: ${ IMAGE_REGISTRY }:${ IMAGE_NAME }
+    image: ${IMAGE_REGISTRY}:${IMAGE_NAME}
     restart: always
     command: python3 main.py
     volumes:
